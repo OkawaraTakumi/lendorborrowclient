@@ -1,12 +1,14 @@
 import { FC } from "react";
-import { useForm, Controller, FieldValues } from "react-hook-form";
+import { Controller, Control, FieldErrors } from "react-hook-form";
 import {TextField} from '@material-ui/core';
 
 export interface Props {
     label:string,
     name:string,
     errorText?:string,
-    pattern?:RegExp
+    pattern?:RegExp,
+    control:Control,
+    errors:FieldErrors
 }
 
 
@@ -14,12 +16,14 @@ const TextFieldAtom: FC<Props> = ({
     label,
     errorText,
     name,
-    pattern
+    pattern,
+    control,
+    errors
 }) => {
 
-    const { formState:{errors} , control} = useForm<FieldValues>({
-        mode:"all"
-    })
+    // const { formState:{errors} , control, getValues} = useForm<FieldValues>({
+    //     mode:"all"
+    // })
 
 
     return (
@@ -42,9 +46,9 @@ const TextFieldAtom: FC<Props> = ({
                                                             (errors[name].type === "required" ? '入力して下さい':'')||
                                                             (errors[name].type === "pattern" ? `${errorText}`:'')
                                                         )}
-                  />            
-                )}
-                />
+                  />           
+                  )}
+                  />
         </div>
         
     );

@@ -1,11 +1,17 @@
 import {
     FormBuilder
-} from '../../component/molecules/index'
-import { Props as PropsArray } from '../../component/atoms/TextFieldAtom'
+} from '../../component/molecules/index';
 
 const Register = () => {
 
-    const propsArray:PropsArray[] = [
+    interface Props {
+        label:string,
+        name:string,
+        errorText?:string,
+        pattern?:RegExp
+    }
+
+    const propsArray:Props[] = [
         {
             label:'名前',
             name:'name',
@@ -25,13 +31,22 @@ const Register = () => {
         }
     ]
 
-    const handleFunc = () => {
-        console.log(3)
-    }
+
+    
+
+    // const handleFunc = () => {
+    //     const {name,email,password} = getValues() 
+    //     console.log(getValues())
+    //     axios.post('http://localhost:5000/auth/register', {
+    //         name,
+    //         email,
+    //         password
+    //     })
+    // }
 
     return (
         <>
-            <FormBuilder propsArray={propsArray} handleFunc={handleFunc} />
+            <FormBuilder propsArray={propsArray}  />
         </>
     );
 };

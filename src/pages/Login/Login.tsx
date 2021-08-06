@@ -4,8 +4,13 @@ import {
 import { Props as PropsArray } from '../../component/atoms/TextFieldAtom'
 
 const Login = () => {
-
-    const propsArray:PropsArray[] = [
+    interface Props {
+        label:string,
+        name:string,
+        errorText?:string,
+        pattern?:RegExp
+    }
+    const propsArray:Props[] = [
         {
             label:'メールアドレス',
             name:'email',
@@ -20,13 +25,10 @@ const Login = () => {
         }
     ]
 
-    const handleFunc = () => {
-        console.log(3)
-    }
 
     return (
         <>
-            <FormBuilder propsArray={propsArray} handleFunc={handleFunc}/>
+            <FormBuilder propsArray={propsArray} />
         </>
     );
 };

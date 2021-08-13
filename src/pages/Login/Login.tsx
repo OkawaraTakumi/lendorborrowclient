@@ -1,7 +1,11 @@
 import {
     FormBuilder
-} from '../../component/molecules/index'
-import { Props as PropsArray } from '../../component/atoms/TextFieldAtom'
+} from '../../component/molecules/index';
+import { useState } from 'react';
+import { useForm, FieldValues } from "react-hook-form";
+import { useHistory, Link } from 'react-router-dom';
+import { useAppDispatch } from '../../app/hooks';
+import { loginAndFetchUser } from '../../slices/loginSlice';
 
 const Login = () => {
     interface Props {
@@ -26,9 +30,32 @@ const Login = () => {
     ]
 
 
+    const dispatch = useAppDispatch();
+    const history = useHistory();
+    const [errorState, setErrorState] = useState<string>('')
+
+    const { formState:{errors} , control, getValues} = useForm<FieldValues>({
+        mode:"all"
+    })
+
+    const handleFunc = () => {
+        const { email, password} = getValues() 
+        dispatch(loginAndFetchUser({email, password}))
+        .then(() => {history.push('/')})
+        .catch(() => setErrorState('ログインに失敗しました'))
+    }
+
+
     return (
         <>
-            <FormBuilder propsArray={propsArray} />
+            <p>{errorState}</p>
+            <FormBuilder propsArray={propsArray} 
+                         control={control} 
+                         errors={errors} 
+                         handleFunc={handleFunc} 
+                         textWillShow="ログイン"
+            />
+            <Link to='/register'>新規登録はこちら</Link>
         </>
     );
 };

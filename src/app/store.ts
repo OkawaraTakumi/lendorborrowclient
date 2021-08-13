@@ -1,8 +1,12 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import loginSlice from '../slices/loginSlice';
+import lorbSlice from '../slices/lorbSlice';
+
 
 export const store = configureStore({
   reducer: {
-    
+    login:loginSlice,
+    lorb:lorbSlice
   },
 });
 

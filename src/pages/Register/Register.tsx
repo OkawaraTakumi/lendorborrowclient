@@ -1,6 +1,13 @@
+import { useState } from 'react';
+import { useHistory } from 'react-router';
 import {
     FormBuilder
 } from '../../component/molecules/index';
+import { useForm, FieldValues } from "react-hook-form";
+import { POST_REGIST_URL } from '../../app/commonURL'; 
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+
+import axios from 'axios';
 
 const Register = () => {
 
@@ -8,7 +15,7 @@ const Register = () => {
         label:string,
         name:string,
         errorText?:string,
-        pattern?:RegExp
+        pattern?:RegExp,
     }
 
     const propsArray:Props[] = [
@@ -31,22 +38,35 @@ const Register = () => {
         }
     ]
 
-
+    const [errorState, setErrorState] = useState<string>('')
+    const history = useHistory();
     
 
-    // const handleFunc = () => {
-    //     const {name,email,password} = getValues() 
-    //     console.log(getValues())
-    //     axios.post('http://localhost:5000/auth/register', {
-    //         name,
-    //         email,
-    //         password
-    //     })
-    // }
+    const { formState:{errors} , control, getValues} = useForm<FieldValues>({
+        mode:"all"
+    })
+
+    const handleFunc = () => {
+        const {name, email, password} = getValues() 
+        axios.defaults.withCredentials = true;
+        axios.post(POST_REGIST_URL, {
+            name,
+            email,
+            password
+        }).then(() => history.push('/login'))
+          .catch(() => setErrorState('登録に失敗しました'))
+    }
+    
 
     return (
         <>
-            <FormBuilder propsArray={propsArray}  />
+            <p>{errorState}</p>
+            <FormBuilder propsArray={propsArray} 
+                         control={control} 
+                         errors={errors} 
+                         handleFunc={handleFunc}
+                         textWillShow="登録"
+            />
         </>
     );
 };

@@ -15,10 +15,13 @@ import {
   Home
  } from './pages/index';
 
+ import { Header } from './component/molecules/index'
+
 function App() {
   return (
     <div className="App">
       <Router>
+          <Header/>
           <Switch>
               <Route path="/approveLorB" exact component={ApproveLorB} />
               <Route path="/approveNegotiate" exact component={ApproveNegotiate} />

@@ -6,6 +6,7 @@ interface Props {
     onClick?: () => void,
     textWillShow:string,
     disabled?:boolean
+    className?:string
 }
 
 const ButtonAtom: FC<Props> = ({
@@ -13,9 +14,16 @@ const ButtonAtom: FC<Props> = ({
     onClick,
     textWillShow,
     disabled,
+    className
 }) => {
     return (
-        <Button onClick={onClick} disabled={disabled} color={color} variant="contained" >{textWillShow}</Button>
+        <Button onClick={onClick} 
+                disabled={disabled} 
+                color={color} 
+                variant="contained"
+                className={className}>
+                    {textWillShow}
+        </Button>
     );
 };
 

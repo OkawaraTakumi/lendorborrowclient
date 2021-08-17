@@ -4,7 +4,7 @@ import {
   Route
  } from 'react-router-dom';
 import { 
-  ApproveLorB,
+  ApproveCreate,
   ApproveNegotiate,
   Completed,
   CreateLorB,
@@ -14,16 +14,29 @@ import {
   Register,
   Home
  } from './pages/index';
-
+ import { useEffect } from 'react';
  import { Header } from './component/molecules/index'
+ import { fetchUser } from './slices/loginSlice'
+ import { SelectUser } from './slices/loginSlice';
+ import { useAppDispatch, useAppSelector } from './app/hooks'
 
 function App() {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(SelectUser);
+  useEffect(() => {
+    dispatch(fetchUser())
+  },[dispatch])
+
+  useEffect(() => {
+    console.log(user)
+  },[user])
+
   return (
     <div className="App">
       <Router>
           <Header/>
           <Switch>
-              <Route path="/approveLorB" exact component={ApproveLorB} />
+              <Route path="/approveCreate" exact component={ApproveCreate} />
               <Route path="/approveNegotiate" exact component={ApproveNegotiate} />
               <Route path="/borrow" exact component={Borrow} />
               <Route path="/completed" exact component={Completed} />

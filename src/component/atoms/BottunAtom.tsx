@@ -3,10 +3,12 @@ import Button from '@material-ui/core/Button';
 
 interface Props {
     color?: "inherit" | "primary" | "secondary" | "default" ,
-    onClick?: () => void,
+    onClick?: (...optionalParams:any[]) => void,
     textWillShow:string,
     disabled?:boolean
     className?:string
+    index?:string
+    type?:"button" | "reset" | "submit"
 }
 
 const ButtonAtom: FC<Props> = ({
@@ -14,14 +16,17 @@ const ButtonAtom: FC<Props> = ({
     onClick,
     textWillShow,
     disabled,
-    className
+    className,
+    index,
+    type
 }) => {
     return (
         <Button onClick={onClick} 
                 disabled={disabled} 
                 color={color} 
                 variant="contained"
-                className={className}>
+                className={className}
+                type={type}>
                     {textWillShow}
         </Button>
     );

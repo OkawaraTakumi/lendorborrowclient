@@ -5,8 +5,6 @@ import {
 } from '../../component/molecules/index';
 import { useForm, FieldValues } from "react-hook-form";
 import { POST_REGIST_URL } from '../../app/commonURL'; 
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
-
 import axios from 'axios';
 
 const Register = () => {

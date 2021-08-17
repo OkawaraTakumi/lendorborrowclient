@@ -1,6 +1,9 @@
-import { createAsyncThunk, 
+import { 
+    createAsyncThunk, 
     createSlice, 
-    PayloadAction } from "@reduxjs/toolkit";
+    PayloadAction, 
+    current
+ } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
 import axios from "axios";
 import {
@@ -10,7 +13,7 @@ import {
     PUT_REJECT_CREATE,
     GET_GET_ONMAKING,
     GET_GET_ONBEING_SUGGESTED,
-    GET_GET_LORB,
+    // GET_GET_LORB,
     GET_GET_LORB_KEEP_LORB,
     GET_GET_ALL_LORB,
     GET_GET_LORB_IHAVE,
@@ -38,23 +41,42 @@ userForApprove:T
 
 //ThunkAPIの型
 export interface ErrorResponse {
-    success:boolean
+    success:boolean | string
     }
 
+export interface resObj {
+    LorBBox: {
+        LorBState?: number, 
+        negotiateItem?: string, 
+        negotiateDetail?: string, 
+        userForApprove?: string, 
+        title:string
+        detailClass: string
+        aboutDetail:string
+        _id?: string
+    }
+    createTime?: string
+    userFrom?: string
+    userFromName?:string
+    userTo?: string
+    userToName?:string
+    _id?: string
+}
+
 export interface onMaking {
-    onMaking:unknown,
+    onMaking:Array<resObj>,
     count:number
 }
 
 export interface onBeingSuggested {
-    onBeingSuggested:unknown,
+    onBeingSuggested:Array<resObj>,
     count:number
 }
 
 export interface keepLorB {
-    LKeepOn:unknown,
+    LKeepOn:Array<resObj>,
     LCount:number,
-    BKeepOn:unknown,
+    BKeepOn:Array<resObj>,
     BCount:number
 }
 
@@ -67,7 +89,10 @@ export interface AllLorBIhave {
 }
 
 export interface Completed {
-    completed:unknown
+    completed:{
+        LCompleted:Array<resObj>
+        BCompleted:Array<resObj>
+    }
 }
 
 
@@ -79,7 +104,8 @@ interface LorB {
     keepLorB?:keepLorB,
     AllLorB?:AllLorB,
     AllLorBIhave?:AllLorBIhave,
-    Completed?:Completed
+    Completed?:Completed,
+    error?:ErrorResponse
 }
 
 
@@ -99,15 +125,19 @@ async ({title,
         userFrom,
         userForApprove},
         { getState ,rejectWithValue }) => {
-  const res = await axios.post(POST_CREATE_LORB, {
-    title,
-    detailClass,
-    aboutDetail,
-    userTo,
-    userFrom,
-    userForApprove
-   })
-   return res.data.success
+   try {
+       const res = await axios.post(POST_CREATE_LORB, {
+         title,
+         detailClass,
+         aboutDetail,
+         userTo,
+         userFrom,
+         userForApprove
+        })
+        return res.data.success
+   } catch(err) {
+       return rejectWithValue({success:'作成に失敗'})
+   }
 }
 )
 
@@ -314,6 +344,19 @@ export const LorBSlice = createSlice({
 name:'lorb',
 initialState,
 reducers:{
+    // updateOnMaking:(state,action:PayloadAction<{index:number}>) => {
+    //     const preOnMaking = state
+    //     const aaaa = preOnMaking.onMaking?.onMaking
+    //     console.log(current(preOnMaking.onMaking?.onMaking))
+    //     console.log(action.payload.index)
+    //         state.onMaking.onMaking = preOnMaking.onMaking?.onMaking.slice(action.payload.index)
+        
+    // }
+    setError:(state,action:PayloadAction<ErrorResponse>) => {
+        console.log(action.payload)
+        state.error = action.payload;
+        console.log(current(state.error))
+    }
 },
 extraReducers: (builder) => {
     builder
@@ -335,8 +378,14 @@ extraReducers: (builder) => {
     .addCase(getLorBCompleted.fulfilled, (state, action) =>{
         state.Completed = action.payload
     })
+    .addCase(createLorB.rejected, (state, action) => {
+        state.error = action.payload
+    })
 }
 })
+
+// export const { updateOnMaking } = LorBSlice.actions;
+export const { setError } = LorBSlice.actions
 
 export const SelectOnMaking = (state:RootState) => state.lorb.onMaking
 export const SelectonBeingSuggested = (state:RootState) => state.lorb.onBeingSuggested
@@ -344,5 +393,6 @@ export const SelectkeepLorB = (state:RootState) => state.lorb.keepLorB
 export const SelectAllLorB = (state:RootState) => state.lorb.AllLorB
 export const SelectAllLorBIhave = (state:RootState) => state.lorb.AllLorBIhave
 export const SelectCompleted = (state:RootState) => state.lorb.Completed
+export const SelectError = (state:RootState) => state.lorb.error
 
 export default LorBSlice.reducer;

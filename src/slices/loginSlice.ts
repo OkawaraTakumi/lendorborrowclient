@@ -7,7 +7,7 @@ import { POST_LOGIN_URL , GET_CURRENT_USER_URL } from "../app/commonURL";
 
 export interface User {
     name:string
-    id:string
+    _id:string
 } 
 
 export interface Login {
@@ -27,7 +27,7 @@ export interface loginAction {
 const initialState:Login = {
     user:{
         name:'',
-        id:''
+        _id:''
     }
 }
 
@@ -72,7 +72,7 @@ export const fetchUser = createAsyncThunk<User, void,
             console.log(res)
             return res.data.user
         } catch (error) {
-            return rejectWithValue({name:'',id:''})
+            return rejectWithValue({name:'',_id:''})
         }
     }
 )
@@ -83,7 +83,8 @@ export const loginSlice = createSlice({
     initialState,
     reducers:{
         logout:(state) => {
-            state.user = {name:'',id:''}
+            console.log(state)
+            state.user = {name:'',_id:''}
         }
     },
     extraReducers: (builder) => {
@@ -94,7 +95,8 @@ export const loginSlice = createSlice({
 
         builder
         .addCase(fetchUser.fulfilled, (state, action) => {
-            state.user = action.payload;
+            const { name, _id } = action.payload
+            state.user = {name, _id}
         })
         .addCase(fetchUser.rejected, (state, action) => {
             if(action.payload !== undefined){

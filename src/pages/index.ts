@@ -1,4 +1,4 @@
-export { default as ApproveLorB } from './ApproveLorB/ApproveLorB';
+export { default as ApproveCreate } from './ApproveCreate/ApproveCreate';
 export { default as ApproveNegotiate } from './ApproveNegotiate/ApproveNegotiate';
 export { default as Borrow } from './Borrow/Borrow';
 export { default as Completed } from './Completed/Completed';

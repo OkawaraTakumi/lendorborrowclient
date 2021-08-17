@@ -8,7 +8,8 @@ export interface Props {
     errorText?:string,
     pattern?:RegExp,
     control:Control,
-    errors:FieldErrors
+    errors:FieldErrors,
+    fullwidth?:boolean
 }
 
 
@@ -18,12 +19,9 @@ const TextFieldAtom: FC<Props> = ({
     name,
     pattern,
     control,
-    errors
+    errors,
+    fullwidth
 }) => {
-
-    // const { formState:{errors} , control, getValues} = useForm<FieldValues>({
-    //     mode:"all"
-    // })
 
 
     return (
@@ -39,6 +37,7 @@ const TextFieldAtom: FC<Props> = ({
                 render={({ field }) => (
                     <TextField
                             {...field}
+                            fullWidth={fullwidth}
                             label={label}
                             error={Boolean(errors[name])}
                             helperText={(errors[name] !== undefined) && 

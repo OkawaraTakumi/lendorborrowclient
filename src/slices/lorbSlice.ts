@@ -39,6 +39,14 @@ userFrom:T,
 userForApprove:T
 }
 
+export interface updateNegotiateArgs {
+    userFrom:string,
+    userTo:string
+    negotiateItem:string,
+    negotiateDetail:string,
+    id:string
+}
+
 //ThunkAPIの型
 export interface ErrorResponse {
     success:boolean | string
@@ -314,14 +322,26 @@ async () => {
 )
 
 //指定した貸し借りの交渉データを作成または更新
-export const updateNogotiate = createAsyncThunk<boolean, void,
+export const updateNogotiate = createAsyncThunk<boolean, updateNegotiateArgs,
 { 
     state:RootState,
     rejectValue:ErrorResponse 
 }>(
 'createSlice/updateNogotiate',
-async () => {
-  const res = await axios.get(PUT_UPDATE_NEGOTIATE)
+async ({ 
+    userFrom,
+    userTo,
+    negotiateItem,
+    negotiateDetail,
+    id
+  }) => {
+  const res = await axios.put(PUT_UPDATE_NEGOTIATE,{ 
+    userFrom,
+    userTo,
+    negotiateItem,
+    negotiateDetail,
+    id
+  })
    return res.data.success
 }
 )
@@ -334,7 +354,7 @@ export const deleteLorBtable = createAsyncThunk<boolean, void,
 }>(
 'createSlice/deleteLorBtable',
 async () => {
-  const res = await axios.get(PUT_DELETE_LORB_TABLE)
+  const res = await axios.put(PUT_DELETE_LORB_TABLE)
    return res.data.success
 }
 )

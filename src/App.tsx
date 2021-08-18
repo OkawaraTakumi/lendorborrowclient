@@ -38,10 +38,10 @@ function App() {
           <Switch>
               <Route path="/approveCreate" exact component={ApproveCreate} />
               <Route path="/approveNegotiate" exact component={ApproveNegotiate} />
-              <Route path="/borrow" exact component={Borrow} />
+              <Route path="/borrow/:id" exact component={Borrow} />
               <Route path="/completed" exact component={Completed} />
               <Route path="/createLorB" exact component={CreateLorB} />
-              <Route path="/lend" exact component={Lend} />
+              <Route path="/lend/:id" exact component={Lend} />
               <Route path="/login" exact component={Login} />
               <Route path="/register" exact component={Register} />
               <Route path="/" exact component={Home} />

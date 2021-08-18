@@ -16,6 +16,12 @@ import { createLorB, SelectError, setError } from "../../slices/lorbSlice";
 const useStyles = makeStyles({
     title:{
         margin:'20px 0 0 0'
+    },
+    inputFlex:{
+        display:"flex"
+    },
+    TextFieldAtom:{
+        margin:'0 0 0 20px'
     }
 })
 
@@ -35,7 +41,6 @@ const CreateLorB = () => {
         let userForApprove :string= '';
         if(userFrom === userTo){
             dispatch(setError({success:'貸し人と借り人は一致することはありません'}))
-            console.log(5)
         }else {
 
             if(userFrom === user._id) {
@@ -54,8 +59,6 @@ const CreateLorB = () => {
         }
     }
     const onError = (errors:any,e:any) => {
-        console.log(errors)
-        console.log(e)
         dispatch(setError({success:'不正な入力が存在します'}))
     } 
 
@@ -85,6 +88,9 @@ const CreateLorB = () => {
                                         name='select'
                                         label='種類'
                                         fullwidth={true}/>
+                        </div>
+
+                        <div>
                                 <TextFieldAtom 
                                         control={control} 
                                         errors={errors} 
@@ -94,24 +100,38 @@ const CreateLorB = () => {
                         </div>
 
 
-                        <div>
-                            
+                        <div className={classes.inputFlex}>
                                 <TextFieldAtom 
                                         control={control} 
                                         errors={errors} 
                                         name='userFrom'
-                                        label='貸し人'
+                                        label='貸し人ID'
                                         fullwidth={true}/>
-                                
+
+                                <TextFieldAtom 
+                                        className={classes}
+                                        control={control} 
+                                        errors={errors} 
+                                        name='userFromName'
+                                        label='貸し人名'
+                                        fullwidth={true}/>
                         </div>
 
-                        <div>
+                        <div className={classes.inputFlex}>
                                 
                                 <TextFieldAtom 
                                         control={control} 
                                         errors={errors} 
                                         name='userTo'
                                         label='借り人'
+                                        fullwidth={true}/>
+                                
+                                <TextFieldAtom 
+                                        className={classes}
+                                        control={control} 
+                                        errors={errors} 
+                                        name='userFromName'
+                                        label='借り人名'
                                         fullwidth={true}/>
                                 
                         </div>

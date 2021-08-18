@@ -10,6 +10,9 @@ export interface Props {
     control:Control,
     errors:FieldErrors,
     fullwidth?:boolean
+    className?:{
+        [propsClass:string]:string
+    }
 }
 
 
@@ -20,12 +23,13 @@ const TextFieldAtom: FC<Props> = ({
     pattern,
     control,
     errors,
-    fullwidth
+    fullwidth,
+    className
 }) => {
 
 
     return (
-        <div>
+        <div className={className?.TextFieldAtom}>
             <Controller
                 control={control}
                 defaultValue=''

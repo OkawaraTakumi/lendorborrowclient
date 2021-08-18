@@ -9,14 +9,14 @@ import axios from 'axios';
 
 const Register = () => {
 
-    interface Props {
+    interface PropsforChild {
         label:string,
         name:string,
         errorText?:string,
         pattern?:RegExp,
     }
 
-    const propsArray:Props[] = [
+    const propsArray:PropsforChild[] = [
         {
             label:'名前',
             name:'name',

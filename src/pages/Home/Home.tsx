@@ -73,7 +73,7 @@ export const Home = () => {
                         <div>     
                             <div className={classes.list}>
                                 <Paper className={classes.paper}>
-                                    <Link to='/approveCreate'>
+                                    <Link to='/approveCreate' style={{textDecoration: 'none'}}>
                                         <TypographyAtoms variant="body1" align="center" >
                                             {`${onMaking?.count}件の貸し借り作成依頼があります`}
                                         </TypographyAtoms>
@@ -83,7 +83,7 @@ export const Home = () => {
 
                             <div className={classes.list}>
                                 <Paper className={classes.paper}>
-                                    <Link to="/approveNegotiate">
+                                    <Link to="/approveNegotiate" style={{textDecoration: 'none'}}>
                                         <TypographyAtoms variant="body1" align="center">
                                             {`${onBeingSuggested?.count}件の貸し借り解消依頼があります`}
                                         </TypographyAtoms>

@@ -41,7 +41,11 @@ const Header = () => {
             <AppBar position="static" className={classes.header}>
                 <Toolbar>
                     <Typography variant="h4" className={classes.logo}>
-                        <Link to="/">
+                        <Link to="/" style={{
+                                                textDecoration: 'none',
+                                                fontWeight:'bold',
+                                                marginLeft:'2rem'
+                                             }}>
                             貸し借りDB
                         </Link>
                     </Typography> 

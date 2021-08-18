@@ -4,6 +4,7 @@ import {
     BottonAtom,
     TextFieldAtom
 } from '../../component/atoms/index'
+import { Box } from '@material-ui/core'
 
 // import { Props as propsArray } from '../../component/atoms/TextFieldAtom'
 
@@ -20,7 +21,10 @@ interface Props {
     control:Control,
     errors:FieldErrors,
     handleFunc:(...handleArgs:any[]) => void,
-    textWillShow:string
+    textWillShow:string,
+    className?:{
+        [propsClass:string]:string
+    }
 }
 
 
@@ -29,7 +33,8 @@ const FormBuilder:FC<Props> = ({
     control,
     errors,
     handleFunc,
-    textWillShow
+    textWillShow,
+    className
 }) => {
 
     
@@ -39,10 +44,18 @@ const FormBuilder:FC<Props> = ({
             <form>
                 {
                     propsArray.map((props, index) => (
-                        <TextFieldAtom {...props} control={control} errors={errors} key={index}></TextFieldAtom>
+                        <TextFieldAtom 
+                                {...props} 
+                                control={control} 
+                                errors={errors} 
+                                key={index}
+                                className={className}>
+                                </TextFieldAtom>
                     ))
-                }
+                }       
+                    <Box className={className?.Box}>
                         <BottonAtom onClick={() => handleFunc()} color={"primary"} textWillShow={textWillShow} />      
+                    </Box>
             </form>
         </>
     );

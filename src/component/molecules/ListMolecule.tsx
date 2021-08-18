@@ -45,7 +45,7 @@ const ListModule: FC<Props> = ({
                     willShows.map((willShow:any, index:number) => {
                        return (
                             <ListItem key={index} className={className?.box}>
-                                <Link to={`/${root}/${index}`} >
+                                <Link to={`/${root}/${index}`} style={{textDecoration: 'none'}}>
                                     <ListItemText 
                                             primary={willShow.LorBBox.title}
                                             className={className?.box}    

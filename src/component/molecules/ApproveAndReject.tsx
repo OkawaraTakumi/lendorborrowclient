@@ -42,8 +42,6 @@ const ApproveAndReject: FC<Props> = ({
                 userFrom:item.userFrom,
                 id:item.LorBBox._id
             }
-            console.log(index)
-            // dispatch(updateOnMaking({index}))
             dispatch(willDispatch(payload)).then(() => {
                 dispatch(getOnMaking())
             })

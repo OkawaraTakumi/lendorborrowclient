@@ -55,22 +55,6 @@ const ShowListOfAnyLorB : FC<Props>= ({
                                 })
                                 
                             }
-                            {/* <ApproveAndReject 
-                                        textWillShow="拒否"
-                                        className={classes.button}
-                                        color={"primary"}
-                                        item={item}
-                                        willDispatch={rejectCreate}
-                                        index={index}
-                                        />            
-                            <ApproveAndReject 
-                                        textWillShow="承認"
-                                        className={classes.button}
-                                        color={"primary"}
-                                        item={item}
-                                        willDispatch={approveCreate}
-                                        index={index}
-                                        /> */}
                         </Box>
                     </Container>
                     )

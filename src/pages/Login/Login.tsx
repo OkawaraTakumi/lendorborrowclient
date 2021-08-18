@@ -55,7 +55,12 @@ const Login = () => {
                          handleFunc={handleFunc} 
                          textWillShow="ログイン"
             />
-            <Link to='/register'>新規登録はこちら</Link>
+            <Link 
+                to='/register' 
+                style={{textDecoration: 'none'}}
+            >
+                新規登録はこちら
+            </Link>
         </>
     );
 };

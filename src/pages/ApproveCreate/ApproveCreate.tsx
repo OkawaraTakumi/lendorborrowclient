@@ -5,7 +5,11 @@ import {
 } from "@material-ui/core";
 import { SelectOnMaking } from "../../slices/lorbSlice";
 import { useAppSelector } from "../../app/hooks";
-import { rejectCreate, approveCreate } from "../../slices/lorbSlice";
+import { 
+    rejectCreate, 
+    approveCreate,
+    getOnMaking
+    } from "../../slices/lorbSlice";
 import { resObj } from "../../slices/lorbSlice";
 import { buttonArray } from "../../component/templates/ShowListOfAnyLorB";
 import { ShowListOfAnyLorB } from "../../component/templates";
@@ -55,6 +59,7 @@ const ApproveCreate = () => {
                     buttonArray={buttonProps} 
                     classes={classes} 
                     items={items as resObj[]}
+                    reloadFunc={getOnMaking}
                     >
                 作成依頼のものはありません
             </ShowListOfAnyLorB>

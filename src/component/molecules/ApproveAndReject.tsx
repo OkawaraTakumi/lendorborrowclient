@@ -16,6 +16,7 @@ interface Props {
     item:resObj
     willDispatch:any
     index:number
+    reloadFunc:any
 }
 
 const ApproveAndReject: FC<Props> = ({
@@ -25,7 +26,8 @@ const ApproveAndReject: FC<Props> = ({
     className,
     item,
     willDispatch,
-    index
+    index,
+    reloadFunc
 }) => {
 
     const dispatch = useAppDispatch();
@@ -42,8 +44,10 @@ const ApproveAndReject: FC<Props> = ({
                 userFrom:item.userFrom,
                 id:item.LorBBox._id
             }
+            console.log(willDispatch)
+            console.log(payload)
             dispatch(willDispatch(payload)).then(() => {
-                dispatch(getOnMaking())
+                dispatch(reloadFunc())
             })
         }
     }

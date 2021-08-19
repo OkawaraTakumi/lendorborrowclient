@@ -37,5 +37,7 @@ export const GET_GET_LORB_IHAVE = `${BASE_URL}/LorB/getLorBKeepLorB`
 export const GET_LORB_COMPLETED = `${BASE_URL}/LorB/getLorBCompleted`
 //交渉の内容を設定または更新
 export const PUT_UPDATE_NEGOTIATE = `${BASE_URL}/LorB/updateNegotiate`
+//交渉を承認
+export const PUT_REJECT_NEGOTIATE = `${BASE_URL}/LorB/rejectNegotiate`
 //任意の貸し借りデータを論理削除,削除と書いてあるがstateを更新するだけなのでPUTで良い
 export const PUT_DELETE_LORB_TABLE = `${BASE_URL}/LorB/deleteLorBtable`

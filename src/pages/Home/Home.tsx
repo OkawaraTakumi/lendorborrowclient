@@ -73,21 +73,38 @@ export const Home = () => {
                         <div>     
                             <div className={classes.list}>
                                 <Paper className={classes.paper}>
-                                    <Link to='/approveCreate' style={{textDecoration: 'none'}}>
+                                    {
+                                        onMaking 
+                                        && (Array.isArray(onMaking) 
+                                        && Boolean(onMaking.length)) ?
+                                       <Link to='/approveCreate' style={{textDecoration: 'none'}}>
+                                            <TypographyAtoms variant="body1" align="center" >
+                                                {`${onMaking?.count}件の貸し借り作成依頼があります`}
+                                            </TypographyAtoms>
+                                        </Link>:
                                         <TypographyAtoms variant="body1" align="center" >
-                                            {`${onMaking?.count}件の貸し借り作成依頼があります`}
-                                        </TypographyAtoms>
-                                    </Link>
+                                        {'作成依頼はありません'}
+                                    </TypographyAtoms>
+                                    }
+
                                 </Paper>
                             </div>  
 
                             <div className={classes.list}>
                                 <Paper className={classes.paper}>
-                                    <Link to="/approveNegotiate" style={{textDecoration: 'none'}}>
-                                        <TypographyAtoms variant="body1" align="center">
-                                            {`${onBeingSuggested?.count}件の貸し借り解消依頼があります`}
-                                        </TypographyAtoms>
-                                    </Link>
+                                    {
+                                        onBeingSuggested 
+                                        && (Array.isArray(onBeingSuggested) 
+                                        && Boolean(onBeingSuggested.length)) ?
+                                       <Link to='/approveCreate' style={{textDecoration: 'none'}}>
+                                            <TypographyAtoms variant="body1" align="center" >
+                                                {`${onBeingSuggested?.count}件の貸し借り解消依頼があります`}
+                                            </TypographyAtoms>
+                                        </Link>:
+                                        <TypographyAtoms variant="body1" align="center" >
+                                        {'解消依頼はありません'}
+                                    </TypographyAtoms>
+                                    }
                                 </Paper>
                             </div>  
                         </div>

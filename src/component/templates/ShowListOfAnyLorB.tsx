@@ -6,7 +6,8 @@ import {
 import { ApproveAndReject } from "../molecules";
 import { OneDataDisplay } from '../molecules'
 import { resObj } from "../../slices/lorbSlice";
-
+import { useEffect } from "react";
+import { isArray } from "util";
 export interface buttonArray {
     textWillShow:string
     color:"inherit" | "primary" | "secondary" | "default"
@@ -18,21 +19,25 @@ interface Props {
     children:string,
     classes:any,
     items:resObj[],
-    buttonArray:buttonArray[]
+    buttonArray:buttonArray[],
+    reloadFunc?:any
 }
 
 const ShowListOfAnyLorB : FC<Props>= ({
     children,
     classes,
     items,
-    buttonArray
+    buttonArray,
+    reloadFunc
 }) => {
-
+    useEffect(() => {
+        console.log(items)
+    })
 
     return (
         <>  
-            { items ?   
-                items?.map((item, index) => {
+            { items && (Array.isArray(items) && Boolean(items.length)) ?   
+                (items?.map((item, index) => {
                     return (
                     <Container key={index} maxWidth='sm' >
                         <OneDataDisplay item={item} className={classes.approve}/>
@@ -50,6 +55,7 @@ const ShowListOfAnyLorB : FC<Props>= ({
                                                 willDispatch={property.willDispatch}
                                                 index={index}
                                                 key={property.id}
+                                                reloadFunc={reloadFunc}
                                         />
                                     )
                                 })
@@ -58,7 +64,8 @@ const ShowListOfAnyLorB : FC<Props>= ({
                         </Box>
                     </Container>
                     )
-                }):
+                })
+                ):
                 <Box>
                     {children}
                 </Box>  

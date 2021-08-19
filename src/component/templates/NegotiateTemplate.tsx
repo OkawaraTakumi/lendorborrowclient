@@ -1,4 +1,5 @@
 import React, { useState,useEffect, FC } from "react";
+import { useHistory } from "react-router";
 import { OneDataDisplay } from "../../component/molecules";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { 
@@ -58,6 +59,7 @@ export const NegotiateTemplate :FC<Props> = ({
     KeeponProps
 }) => {
     const classes = useStyles()
+    const history = useHistory();
     const dispatch = useAppDispatch();
     const [KeepOnWillshow ,setKeepOnWill] = useState<resObj>()
     const [KeepId, setKeepId] = useState<string | undefined>('')
@@ -94,6 +96,7 @@ export const NegotiateTemplate :FC<Props> = ({
                     id
                   }))
             }
+            history.push('/')
     }
 
     return (
@@ -108,7 +111,7 @@ export const NegotiateTemplate :FC<Props> = ({
                          control={control} 
                          errors={errors} 
                          handleFunc={handleFunc}
-                         textWillShow="登録"
+                         textWillShow="交渉"
                          className={classes}/>
                 </Container>
             }

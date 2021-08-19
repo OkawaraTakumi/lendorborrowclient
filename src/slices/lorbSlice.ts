@@ -19,7 +19,8 @@ import {
     GET_GET_LORB_IHAVE,
     GET_LORB_COMPLETED,
     PUT_UPDATE_NEGOTIATE,
-    PUT_DELETE_LORB_TABLE
+    PUT_DELETE_LORB_TABLE,
+    PUT_REJECT_NEGOTIATE
 } from '../app/commonURL';
 
 
@@ -346,15 +347,46 @@ async ({
 }
 )
 
+//交渉を拒否
+export const rejectNegotiate = createAsyncThunk<boolean, approveCreateAction<string>,
+{ 
+    state:RootState,
+    rejectValue:ErrorResponse 
+}>(
+'createSlice/rejectCreate',
+async ({
+            userTo,
+            userFrom,
+            id        
+        },
+        { getState ,rejectWithValue }) => {
+console.log('RejectNegotiateが呼び出されました')
+  const res = await axios.put(PUT_REJECT_NEGOTIATE, {
+    userTo,
+    userFrom,
+    id
+   })
+   return res.data.success
+}
+)
+
 //任意の貸し借りデータを論理削除
-export const deleteLorBtable = createAsyncThunk<boolean, void,
+export const deleteLorBtable = createAsyncThunk<boolean, approveCreateAction<string>,
 { 
     state:RootState,
     rejectValue:ErrorResponse 
 }>(
 'createSlice/deleteLorBtable',
-async () => {
-  const res = await axios.put(PUT_DELETE_LORB_TABLE)
+async ({
+    userTo,
+    userFrom,
+    id
+}) => {
+  const res = await axios.put(PUT_DELETE_LORB_TABLE,{
+    userTo,
+    userFrom,
+    id
+  })
    return res.data.success
 }
 )

@@ -8,7 +8,7 @@ import { Box } from '@material-ui/core'
 
 // import { Props as propsArray } from '../../component/atoms/TextFieldAtom'
 
-interface propsArray {
+export interface propsArray {
     label:string,
     name:string,
     errorText?:string,
@@ -49,8 +49,9 @@ const FormBuilder:FC<Props> = ({
                                 control={control} 
                                 errors={errors} 
                                 key={index}
-                                className={className}>
-                                </TextFieldAtom>
+                                className={className}
+                        >
+                        </TextFieldAtom>
                     ))
                 }       
                     <Box className={className?.Box}>

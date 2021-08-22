@@ -7,3 +7,4 @@ export { default as Home } from './Home/Home';
 export { default as Lend } from './Lend/Lend';
 export { default as Login } from './Login/Login';
 export { default as Register } from './Register/Register';
+export { default as Mypage } from './Mypage/Mypage'

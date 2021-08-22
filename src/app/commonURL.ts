@@ -41,3 +41,10 @@ export const PUT_UPDATE_NEGOTIATE = `${BASE_URL}/LorB/updateNegotiate`
 export const PUT_REJECT_NEGOTIATE = `${BASE_URL}/LorB/rejectNegotiate`
 //任意の貸し借りデータを論理削除,削除と書いてあるがstateを更新するだけなのでPUTで良い
 export const PUT_DELETE_LORB_TABLE = `${BASE_URL}/LorB/deleteLorBtable`
+
+
+//User
+export const EDIT_USER =`${BASE_URL}/user/edit`;
+export const GET_FOLLOW = `${BASE_URL}/user/getFollow`;
+export const POST_FOLLOW_USER = `${BASE_URL}/user/followUser`;
+export const GET_GET_FOLOWER = `${BASE_URL}/user/getFollower`;

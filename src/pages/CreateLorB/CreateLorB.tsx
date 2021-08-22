@@ -10,7 +10,10 @@ import {
 import { useForm, FieldValues } from "react-hook-form"; 
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { SelectUser } from "../../slices/loginSlice";
+import { SelectFollowUser, getFollow } from "../../slices/userSlice";
 import { createLorB, SelectError, setError } from "../../slices/lorbSlice";
+import { SelectAtom } from "../../component/atoms";
+import { useEffect } from "react";
 
 
 const useStyles = makeStyles({
@@ -29,9 +32,14 @@ const useStyles = makeStyles({
 
 const CreateLorB = () => {
     const user = useAppSelector(SelectUser);
-    const error = useAppSelector(SelectError)
+    const error = useAppSelector(SelectError);
+    const followUser = useAppSelector(SelectFollowUser)
     const dispatch = useAppDispatch();
     const classes = useStyles();
+
+    useEffect(() => {
+        dispatch(getFollow());
+    },[])
 
     const { formState:{errors} , control, getValues, handleSubmit} = useForm<FieldValues>({
         mode:"all"
@@ -42,27 +50,24 @@ const CreateLorB = () => {
         if(userFrom === userTo){
             dispatch(setError({success:'貸し人と借り人は一致することはありません'}))
         }else {
-
             if(userFrom === user._id) {
                 userForApprove = userFrom
             } else if (userTo === userForApprove) {
                 userForApprove = userTo
             }
-            dispatch(createLorB({
-                title,
-                detailClass:select,
-                aboutDetail:about,
-                userTo,
-                userFrom,
-                userForApprove
-            }))
+            // dispatch(createLorB({
+            //     title,
+            //     detailClass:select,
+            //     aboutDetail:about,
+            //     userTo,
+            //     userFrom,
+            //     userForApprove
+            // }))
         }
     }
     const onError = (errors:any,e:any) => {
         dispatch(setError({success:'不正な入力が存在します'}))
-    } 
-
-
+    }
 
     return (
         <>
@@ -101,7 +106,8 @@ const CreateLorB = () => {
 
 
                         <div className={classes.inputFlex}>
-                                <TextFieldAtom 
+                                <SelectAtom 
+                                        selectItems={followUser}
                                         control={control} 
                                         errors={errors} 
                                         name='userFrom'

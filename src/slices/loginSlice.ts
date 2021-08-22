@@ -23,7 +23,6 @@ export interface loginAction {
     password:string
 }
 
-
 const initialState:Login = {
     user:{
         name:'',

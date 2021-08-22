@@ -31,12 +31,18 @@ const useStyles = makeStyles((theme:Theme) =>
         box:{
             textAlign:"center",
             padding:"0",
-            justifyContent:"center"
+            justifyContent:"center",
+            fontWeight:"bold",
+            fontSize:"18px"
         },
         paper:{
             color: theme.palette.text.secondary,
             padding: theme.spacing(2),
             margin: "10px 0 0 0"
+        },
+        title:{
+            fontWeight:"bold",
+            fontSize:"18px"
         }
     }))
 
@@ -57,7 +63,11 @@ export const Home = () => {
     },[dispatch])
 
     useEffect(() => {
-        console.log(onMaking,'Home')
+        console.log(onMaking 
+            && (Array.isArray(onMaking) 
+            && onMaking.count ),'作成中のやつ')
+        console.log(Boolean(onMaking))
+        console.log(Array.isArray(onMaking?.onMaking))
     },[onMaking])
 
     useEffect(() => {
@@ -75,14 +85,20 @@ export const Home = () => {
                                 <Paper className={classes.paper}>
                                     {
                                         onMaking 
-                                        && (Array.isArray(onMaking) 
-                                        && Boolean(onMaking.length)) ?
+                                        && (onMaking 
+                                        && onMaking.count ) ?
                                        <Link to='/approveCreate' style={{textDecoration: 'none'}}>
-                                            <TypographyAtoms variant="body1" align="center" >
+                                            <TypographyAtoms 
+                                                    variant="body1" 
+                                                    align="center" 
+                                                    className={classes.title}>
                                                 {`${onMaking?.count}件の貸し借り作成依頼があります`}
                                             </TypographyAtoms>
                                         </Link>:
-                                        <TypographyAtoms variant="body1" align="center" >
+                                        <TypographyAtoms 
+                                                variant="body1" 
+                                                align="center" 
+                                                className={classes.title}>
                                         {'作成依頼はありません'}
                                     </TypographyAtoms>
                                     }
@@ -94,14 +110,20 @@ export const Home = () => {
                                 <Paper className={classes.paper}>
                                     {
                                         onBeingSuggested 
-                                        && (Array.isArray(onBeingSuggested) 
-                                        && Boolean(onBeingSuggested.length)) ?
+                                        && onBeingSuggested
+                                        && Boolean(onBeingSuggested.count) ?
                                        <Link to='/approveCreate' style={{textDecoration: 'none'}}>
-                                            <TypographyAtoms variant="body1" align="center" >
+                                            <TypographyAtoms 
+                                                    variant="body1" 
+                                                    align="center" 
+                                                    className={classes.title}>
                                                 {`${onBeingSuggested?.count}件の貸し借り解消依頼があります`}
                                             </TypographyAtoms>
                                         </Link>:
-                                        <TypographyAtoms variant="body1" align="center" >
+                                        <TypographyAtoms 
+                                                variant="body1" 
+                                                align="center" 
+                                                className={classes.title}>
                                         {'解消依頼はありません'}
                                     </TypographyAtoms>
                                     }

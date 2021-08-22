@@ -23,7 +23,8 @@ const useStyles = makeStyles({
         margin:'0 0 0 10px'
     },
     box:{
-        margin:'10px 0 0 0'
+        margin:'10px 0 0 0',
+        justifyContent:"flex-end"
     }
 })
 const buttonProps :buttonArray[]=[ 

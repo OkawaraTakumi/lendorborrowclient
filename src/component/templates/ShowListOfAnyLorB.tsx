@@ -7,12 +7,13 @@ import { ApproveAndReject } from "../molecules";
 import { OneDataDisplay } from '../molecules'
 import { resObj } from "../../slices/lorbSlice";
 import { useEffect } from "react";
-import { isArray } from "util";
+
 export interface buttonArray {
     textWillShow:string
     color:"inherit" | "primary" | "secondary" | "default"
-    willDispatch:any,
-    id:number
+    willDispatch?:any,
+    id:number,
+    propsPath?:string
 }
 
 interface Props {
@@ -41,7 +42,7 @@ const ShowListOfAnyLorB : FC<Props>= ({
                     return (
                     <Container key={index} maxWidth='sm' >
                         <OneDataDisplay item={item} className={classes.approve}/>
-                        <Box display="flex" justifyContent="flex-end" className={classes.box}>
+                        <Box display="flex"  className={classes.box}>
                             {
                                 buttonArray 
                                 &&

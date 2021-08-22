@@ -1,28 +1,23 @@
 import { FC } from "react";
-import { useEffect } from "react"; 
-// import { approveCreateAction } from '../../slices/lorbSlice';
 import { BottonAtom } from '../atoms'
 import { resObj } from "../../slices/lorbSlice";
 import { useAppDispatch } from "../../app/hooks";
 import { approveCreateAction } from "../../slices/lorbSlice";
-import { getOnMaking } from '../../slices/lorbSlice'
 
 interface Props {
     color?: "inherit" | "primary" | "secondary" | "default" ,
     onClick?: (...optionalParams:any[]) => void,
     textWillShow:string,
-    disabled?:boolean
     className?:string
-    item:resObj
+    item?:resObj
     willDispatch:any
-    index:number
-    reloadFunc:any
+    index?:number
+    reloadFunc?:any
 }
 
 const ApproveAndReject: FC<Props> = ({
     color,
     textWillShow,
-    disabled,
     className,
     item,
     willDispatch,
@@ -31,12 +26,9 @@ const ApproveAndReject: FC<Props> = ({
 }) => {
 
     const dispatch = useAppDispatch();
-    useEffect(() => {
-        console.log(item)
-    }, [item])
-
+    // const [buttonFlag, setButtonFlag] = useState<boolean>(true);
     const handleApproveOrDelete = () => {
-        if(item.userFrom !== undefined
+        if(item?.userFrom !== undefined
             && item.userTo !== undefined
             && item.LorBBox._id !== undefined){
             const payload :approveCreateAction<string> = {
@@ -50,14 +42,19 @@ const ApproveAndReject: FC<Props> = ({
                 dispatch(reloadFunc())
             })
         }
+        // setButtonFlag(prevState => {
+        //     return !prevState
+        // })
     }
 
     return (
         <BottonAtom 
         textWillShow={textWillShow}
         className={className}
-        onClick={() => handleApproveOrDelete()} 
-        color={color} />
+        onClick={() => handleApproveOrDelete()}
+        color={color} 
+        // color={buttonFlag ? color:'secondary'} 
+        />
     );
 };
 

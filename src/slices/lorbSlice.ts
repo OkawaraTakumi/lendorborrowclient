@@ -396,18 +396,8 @@ export const LorBSlice = createSlice({
 name:'lorb',
 initialState,
 reducers:{
-    // updateOnMaking:(state,action:PayloadAction<{index:number}>) => {
-    //     const preOnMaking = state
-    //     const aaaa = preOnMaking.onMaking?.onMaking
-    //     console.log(current(preOnMaking.onMaking?.onMaking))
-    //     console.log(action.payload.index)
-    //         state.onMaking.onMaking = preOnMaking.onMaking?.onMaking.slice(action.payload.index)
-        
-    // }
     setError:(state,action:PayloadAction<ErrorResponse>) => {
-        console.log(action.payload)
         state.error = action.payload;
-        console.log(current(state.error))
     }
 },
 extraReducers: (builder) => {

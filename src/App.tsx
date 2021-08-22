@@ -12,13 +12,14 @@ import {
   Borrow,
   Login,
   Register,
-  Home
+  Home,
+  Mypage
  } from './pages/index';
  import { useEffect } from 'react';
- import { Header } from './component/molecules/index'
- import { fetchUser } from './slices/loginSlice'
+ import { Header } from './component/molecules/index';
+ import { fetchUser } from './slices/loginSlice';
  import { SelectUser } from './slices/loginSlice';
- import { useAppDispatch, useAppSelector } from './app/hooks'
+ import { useAppDispatch, useAppSelector } from './app/hooks';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -36,6 +37,7 @@ function App() {
       <Router>
           <Header/>
           <Switch>
+              <Route path="/mypage"  component={Mypage} />
               <Route path="/approveCreate" exact component={ApproveCreate} />
               <Route path="/approveNegotiate" exact component={ApproveNegotiate} />
               <Route path="/borrow/:id" exact component={Borrow} />

@@ -112,7 +112,7 @@ export const Home = () => {
                                         onBeingSuggested 
                                         && onBeingSuggested
                                         && Boolean(onBeingSuggested.count) ?
-                                       <Link to='/approveCreate' style={{textDecoration: 'none'}}>
+                                       <Link to='/approveNegotiate' style={{textDecoration: 'none'}}>
                                             <TypographyAtoms 
                                                     variant="body1" 
                                                     align="center" 

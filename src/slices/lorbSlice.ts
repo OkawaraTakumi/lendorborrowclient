@@ -36,7 +36,9 @@ title:T,
 detailClass:T,
 aboutDetail:T,
 userTo:T,
+userToName:T,
 userFrom:T,
+userFromName:T,
 userForApprove:T
 }
 
@@ -131,7 +133,9 @@ async ({title,
         detailClass,
         aboutDetail,
         userTo,
+        userToName,
         userFrom,
+        userFromName,
         userForApprove},
         { getState ,rejectWithValue }) => {
    try {
@@ -140,7 +144,9 @@ async ({title,
          detailClass,
          aboutDetail,
          userTo,
+         userToName,
          userFrom,
+         userFromName,
          userForApprove
         })
         return res.data.success

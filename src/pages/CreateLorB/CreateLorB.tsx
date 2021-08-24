@@ -7,13 +7,14 @@ import {
         BottonAtom,
         TextFieldAtom
          } from "../../component/atoms";
-import { useForm, FieldValues } from "react-hook-form"; 
+import { useForm, FieldValues } from "react-hook-form";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { SelectUser } from "../../slices/loginSlice";
 import { SelectFollowUser, getFollow } from "../../slices/userSlice";
 import { createLorB, SelectError, setError } from "../../slices/lorbSlice";
 import { SelectAtom } from "../../component/atoms";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { User } from "../../slices/userSlice";
 
 
 const useStyles = makeStyles({
@@ -36,33 +37,64 @@ const CreateLorB = () => {
     const followUser = useAppSelector(SelectFollowUser)
     const dispatch = useAppDispatch();
     const classes = useStyles();
+    const [selectItemsFollow, setselectItemsFollow] = useState<Array<User>>([])
 
     useEffect(() => {
         dispatch(getFollow());
     },[])
 
+    useEffect(() => {
+        if(user && Array.isArray(followUser)){
+            const newUserArray = [user];
+            const newFollowArray = newUserArray.concat(followUser)
+            setselectItemsFollow(newFollowArray)
+        }
+    },[user, followUser])
+
     const { formState:{errors} , control, getValues, handleSubmit} = useForm<FieldValues>({
         mode:"all"
     })
     const onSubmit = (data:any, e:any) => {
+        dispatch(setError({success:''}))
         const { title, select, about, userFrom, userTo } = getValues() 
+        let userFromName = '';
+        let userToName = '';
         let userForApprove :string= '';
         if(userFrom === userTo){
             dispatch(setError({success:'貸し人と借り人は一致することはありません'}))
         }else {
+            console.log(1)
             if(userFrom === user._id) {
-                userForApprove = userFrom
-            } else if (userTo === userForApprove) {
-                userForApprove = userTo
+                userForApprove = userFrom;
+                userFromName = user.name;
+                const userToNamePrepare = followUser.find((user) => {
+                    return user._id === String(userTo)
+                })?.name
+                userToNamePrepare && (userToName = userToNamePrepare)
+                console.log(userToName,'To')
+            } else if (userTo === user._id) {
+                console.log(2)
+                userForApprove = userTo;
+                userToName = user.name;
+                const userFromNamePrepare = followUser.find((user) => {
+                    return user._id === String(userFrom)
+                })?.name
+                console.log(userFromNamePrepare,'準備')
+                userFromNamePrepare && (userFromName = userFromNamePrepare)
+                console.log(userFromName,'From')
             }
-            // dispatch(createLorB({
-            //     title,
-            //     detailClass:select,
-            //     aboutDetail:about,
-            //     userTo,
-            //     userFrom,
-            //     userForApprove
-            // }))
+            console.log(userFromName,'From')
+            console.log(userToName,'To')
+            dispatch(createLorB({
+                title,
+                detailClass:select,
+                aboutDetail:about,
+                userTo,
+                userToName,
+                userFrom,
+                userFromName,
+                userForApprove
+            }))
         }
     }
     const onError = (errors:any,e:any) => {
@@ -107,38 +139,38 @@ const CreateLorB = () => {
 
                         <div className={classes.inputFlex}>
                                 <SelectAtom 
-                                        selectItems={followUser}
+                                        selectItems={selectItemsFollow}
                                         control={control} 
                                         errors={errors} 
                                         name='userFrom'
                                         label='貸し人ID'
                                         fullwidth={true}/>
 
-                                <TextFieldAtom 
+                                {/* <TextFieldAtom 
                                         className={classes}
                                         control={control} 
                                         errors={errors} 
                                         name='userFromName'
                                         label='貸し人名'
-                                        fullwidth={true}/>
+                                        fullwidth={true}/> */}
                         </div>
 
                         <div className={classes.inputFlex}>
-                                
-                                <TextFieldAtom 
+                                <SelectAtom 
+                                        selectItems={selectItemsFollow}
                                         control={control} 
                                         errors={errors} 
                                         name='userTo'
                                         label='借り人'
                                         fullwidth={true}/>
                                 
-                                <TextFieldAtom 
+                                {/* <TextFieldAtom 
                                         className={classes}
                                         control={control} 
                                         errors={errors} 
                                         name='userFromName'
                                         label='借り人名'
-                                        fullwidth={true}/>
+                                        fullwidth={true}/> */}
                                 
                         </div>
 

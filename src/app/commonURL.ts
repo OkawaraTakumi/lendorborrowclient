@@ -2,7 +2,7 @@
 //[リクエストメソッド]_[処理内容]_URL
 
 // const BASE_URL = 'http://localhost:5000'
-const BASE_URL = 'http://ec2-3-19-217-250.us-east-2.compute.amazonaws.com/api'
+const BASE_URL = '/api'
 
 //auth
 //ユーザー登録時のURL
